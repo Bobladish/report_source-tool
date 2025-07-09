@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="source.css">
+        <title>出典作成ツール</title>
+    </head>
+    <body>
+        <header>
+            <h1 class="title" >Report Tool</h1>
+            <ul>
+                <li><a href="source.html">Source Generator</a></li>
+                <li><a href="count.html">Text Count</a></li>
+            </ul>
+        </header>
+        <main>
+            <h2>Source Generator</h2>
+                <div class="form-group">
+                    <p class="form-exp">著者名</p>
+                    <input type="text" id="author" class="form-box">
+                </div>
+                <div class="form-group">
+                    <p class="form-exp">webページの題名</p>
+                    <input type="text" id="title" class="form-box">
+                </div>
+                <div class="form-group">
+                    <p class="form-exp">webサイトの名称</p>
+                    <input type="text" id="SiteName" class="form-box">
+                </div>
+                <div class="form-group">
+                    <p class="form-exp">更新日付</p>
+                    <input type="text" id="update" class="form-box">
+                </div>
+                <div class="form-group">
+                    <p class="form-exp">入手先(URL)</p>
+                    <input type="url" id="url" class="form-box">
+                </div>
+                <div class="form-group">
+                    <p class="form-exp">入手日付</p>
+                        <input type="text" id="GetDate" class="form-box">
+                </div>
+                    
+                    <br>
+                    <div class="button">
+                        <input type="button" value="作成" id="checkButton">
+                        <input type="button" value="リセット" id="resetButton">
+                    </div>
+                <p id="outputMessage"></p>
+                <button id="copyButton">Copy text</button>
+            
+            <script>
+                function generator(){
+                    // IDを指定して各テキストボックスの要素を取得
+                    const author = document.getElementById('author').value;
+                    const title = document.getElementById('title').value;
+                    const SiteName = document.getElementById('SiteName').value;
+                    const update = document.getElementById('update').value;
+                    const url = document.getElementById('url').value;
+                    const GetDate = document.getElementById('GetDate').value;
+
+                    const parts = [];
+
+                    if(author){
+                        parts.push(author);
+                    }
+                    if(title){
+                        parts.push(title);
+                    }
+                    if(SiteName){
+                        parts.push(SiteName);
+                    }
+                    if(update){
+                        parts.push(update);
+                    }
+                    if(url){
+                        parts.push(`"${url}"`);
+                    }
+                    if(GetDate){
+                        parts.push(GetDate);
+                    }
+                    
+                    let message = parts.join(',');
+                    
+
+                    document.getElementById('outputMessage').textContent = message;
+                }
+
+                function resetFrom(){
+                    const textInputs = document.querySelectorAll('body input[type="text"]');
+
+                    textInputs.forEach(input => {
+                        input.value = '';
+                    });
+
+                    document.getElementById('outputMessage').textContent = '';
+                }
+
+                //コピー関数
+                function copyToClipboard() {
+                    const textToCopy = document.getElementById("outputMessage").textContent;
+
+                    if(!textToCopy){
+                        alert('コピーするテキストがありません。');
+                        return;
+                    }
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        alert('テキストをコピーしました！');
+                    }).catch(err => {
+                        console.error('コピーに失敗しました', err);
+                        aleart('コピーに失敗しました。');
+                    });
+                }
+
+                document.getElementById('checkButton').addEventListener('click', generator);
+                document.getElementById('resetButton').addEventListener('click', resetFrom);
+                document.getElementById('copyButton').addEventListener('click', copyToClipboard);
+                </script>
+        </main>
+        <footer>
+            <p class="copyright">©2025 BobGuro</p>
+        </footer>
+    </body>
+</html>

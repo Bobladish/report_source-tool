@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="count.css">
+    </head>
+    <body>
+        <header>
+            <h1 class="title" >Report Tool</h1>
+            <ul>
+                <li><a href="source.html">Source Generator</a></li>
+                <li><a href="count.html">Text Count</a></li>
+            </ul>
+        </header>
+        <main>
+            <h2>Counter</h2>
+
+            <textarea id="textContent" cols="60" rows="20"></textarea>
+            <br>
+            <div class="button-area">
+                <input type="button" value="Count" id="startButton">
+                <input type="button" value="Reset" id="resetButton">
+            </div>
+            <p>文字数:<span id="char-count">0</span></p>
+        </main>
+        <footer>
+            <p class="copyright">©2025 BobGuro</p>
+        </footer>
+        
+        <script>
+            const textArea = document.getElementById('textContent');
+            const countDisplay = document.getElementById('char-count');
+            const startButton = document.getElementById('startButton');
+            const resetButton = document.getElementById('resetButton');
+            
+            const segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme'});
+                
+            function counter(){
+                const textValue = textArea.value;
+
+                const textWithoutSpaces = textValue.replace(/[\s\u3000]/g, '')
+                const trueLength = [...segmenter.segment(textWithoutSpaces)].length;
+
+                countDisplay.textContent = trueLength;
+            }
+
+            function reset(){
+                textArea.value= '';
+                countDisplay.textContent = '';
+            }
+
+            startButton.addEventListener('click', counter);
+            resetButton.addEventListener('click', reset);
+        </script>
+    </body>
+</html>
