@@ -1,115 +1,185 @@
+/* 全体のレイアウト設定 */
 html {
     height: 100%;
 }
 
 body {
-    /* (1) bodyが最低でも画面の高さを持つようにする */
+    /* bodyが最低でも画面の高さを持つようにし、Flexboxで縦に並べる */
     min-height: 100%;
     margin: 0;
-    
-    /* (2) Flexboxレイアウトを適用 */
+    padding: 0;
     display: flex;
-    flex-direction: column; /* 子要素を縦方向に並べる */
+    flex-direction: column;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    color: #313131;
 }
 
-main {
-    /* (3) main要素が残りの空間をすべて埋めるように伸びる */
-    flex: 1;
-}
-
+/* ヘッダーの設定 */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid;
+    border-bottom: 2px solid #313131;
+    padding: 10px 20px;
 }
-
 
 header ul {
     list-style: none;
-    
     margin: 0;
     padding: 0;
-    
     display: flex;
 }
 
 header ul li {
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
 header ul li a {
     text-decoration: none;
-    color:#313131;
+    color: #313131;
     font-weight: bold;
 }
 
 header ul li a:hover {
-    color:orange;
+    color: orange;
 }
 
 .title {
-    margin-top: 0px;
-    margin-bottom: 10px;
+    margin: 0;
+    font-size: 1.5rem;
 }
 
-.form-box{
-    width:250px;
-    height:30px;
+/* メインコンテンツ（中央揃え） */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 左右中央揃え */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+h2 {
+    margin-bottom: 20px;
+}
+
+/* フォームグループの設定 */
 .form-group {
-    padding-left: 5px;;
+    width: 100%;
+    max-width: 500px; /* PCでの最大幅 */
+    margin-bottom: 15px;
+    padding-left: 0; /* 左寄せを解除 */
 }
 
-
-
-.form-exp{
-    font-size: 17px;
-    margin-bottom: 0
-    ;
+.form-exp {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
+/* 入力欄のスマホ最適化 */
+.form-box {
+    width: 100%;
+    height: 45px; /* 指でタップしやすい高さ */
+    font-size: 16px; /* スマホでズームされないためのサイズ */
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-#checkButton{
-    width:90px;
-    height:30px;
-    width:90px;
+/* ボタンエリア */
+.button {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#checkButton, #resetButton {
+    flex: 1; /* ボタンを横いっぱいに広げる */
+    height: 45px;
     background: #eee;
     color: #313131;
-    border-radius:5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#checkButton:hover, #resetButton:hover {
+    background: orange;
+    color: white;
+}
+
+/* 出力メッセージエリア */
+#outputMessage {
+    width: 100%;
+    max-width: 500px;
+    min-height: 60px;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    word-break: break-all; /* 長いURLの折り返し */
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* コピーボタン */
+#copyButton {
+    width: 100%;
+    max-width: 200px;
+    height: 40px;
+    background: #eee;
+    color: #313131;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#checkButton:hover{
-    background:orange;
+#copyButton:hover {
+    background: orange;
+    color: white;
 }
 
-#resetButton{
-    width:90px;
-    height:30px;
-    background: #eee;
-    color: #313131;
-    border-radius:5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+/* フッター */
+footer {
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #eee;
 }
 
-#resetButton:hover{
-    background:orange;
+.copyright {
+    margin: 0;
+    font-size: 14px;
 }
 
-#copyButton{
-    width:90px;
-    height:25px;
-    background: #eee;
-    color: #313131;
-    border-radius:3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+/* スマホ用メディアクエリ (画面幅が小さい時) */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    header ul {
+        margin-top: 15px;
+    }
 
-#copyButton:hover{
-    background:orange;
+    header ul li {
+        margin: 0 10px;
+    }
+
+    .form-group {
+        max-width: 100%; /* スマホでは横幅を使い切る */
+    }
+
+    .button {
+        flex-direction: row; /* 横並びを維持 */
+    }
 }

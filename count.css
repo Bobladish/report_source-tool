@@ -1,94 +1,142 @@
+/* 全体のレイアウト */
 html {
     height: 100%;
 }
 
 body {
-    /* (1) bodyが最低でも画面の高さを持つようにする */
     min-height: 100%;
     margin: 0;
-    
-    /* (2) Flexboxレイアウトを適用 */
     display: flex;
-    flex-direction: column; /* 子要素を縦方向に並べる */
+    flex-direction: column;
+    font-family: sans-serif;
+    color: #313131;
 }
 
-main {
-    /* (3) main要素が残りの空間をすべて埋めるように伸びる */
-    flex: 1;
-    padding: 5px;
-}
-
+/* ヘッダー：スマホでは縦並びに、PCでは横並びに */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid;
+    padding: 10px 20px;
 }
 
 header ul {
     list-style: none;
-    
     margin: 0;
     padding: 0;
-    
     display: flex;
 }
 
 header ul li {
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
 header ul li a {
     text-decoration: none;
-    color:#313131;
+    color: #313131;
     font-weight: bold;
 }
 
 header ul li a:hover {
-    color:orange;
+    color: orange;
 }
-
-h1 {
-    margin: 0;
-    
-}
-
 
 .title {
-    margin-top: 0px;
-    margin-bottom: 10px;
+    margin: 0;
 }
 
+/* メイン：中央揃えとスマホ対応 */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 左右中央 */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+/* テキストエリアの調整 */
+textarea {
+    width: 100%;          /* スマホでは横幅いっぱい */
+    max-width: 600px;     /* PCで広がりすぎないように制限 */
+    height: 300px;        /* 高さをしっかり確保 */
+    padding: 10px;
+    font-size: 16px;      /* スマホのズーム防止 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;     /* 縦方向にだけサイズ変更可能に */
+}
+
+/* ボタンエリア */
 .button-area {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;
+}
+
+#startButton, #resetButton {
+    flex: 1;              /* ボタンを同じ大きさに広げる */
+    max-width: 150px;     /* 大きくなりすぎないように */
+    height: 45px;         /* タップしやすい高さ */
+    background: #eee;
+    color: #313131;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#startButton:hover, #resetButton:hover {
+    background: orange;
+    color: white;
+}
+
+/* カウント表示 */
+p {
+    font-size: 1.2rem;
+    font-weight: bold;
     margin-top: 20px;
 }
 
-#startButton {
-    width:90px;
-    height:30px;
-    width:90px;
-    background: #eee;
-    color: #313131;
-    border-radius:5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+#char-count {
+    color: orange;
+    font-size: 1.5rem;
+    margin: 0 5px;
 }
 
-#startButton:hover {
-    background: orange;
+/* フッター */
+footer {
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #eee;
 }
 
-#resetButton {
-    width:90px;
-    height:30px;
-    width:90px;
-    background: #eee;
-    color: #313131;
-    border-radius:5px;  
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.copyright {
+    margin: 0;
 }
 
-#resetButton:hover{
-    background:orange;
+/* スマホ用調整 */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    header ul li {
+        margin: 0 10px;
+    }
+
+    textarea {
+        height: 250px; /* スマホでは少し高さを抑える */
+    }
 }
